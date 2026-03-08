@@ -1,4 +1,4 @@
-import {App, Notice, requestUrl} from "obsidian";
+import {App, requestUrl} from "obsidian";
 import {AudiobookPluginSettings} from "../settings";
 
 /**

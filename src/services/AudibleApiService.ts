@@ -3,6 +3,51 @@ import {AudiobookMetadata, AudiobookSearchResult} from "../models/AudiobookMetad
 import {requestUrl} from "obsidian";
 
 /**
+ * Audible API Response Interfaces
+ */
+interface AudibleSearchResponse {
+	products?: AudibleSearchProduct[];
+}
+
+interface AudibleSearchProduct {
+	asin: string;
+}
+
+interface AudiblePerson {
+	name: string;
+}
+
+interface AudibleSeries {
+	name: string;
+	position?: string;
+}
+
+interface AudibleGenre {
+	type: string;
+	name: string;
+}
+
+interface AudibleBookDetail {
+	asin: string;
+	title: string;
+	subtitle?: string;
+	authors?: AudiblePerson[];
+	narrators?: AudiblePerson[];
+	publisherName?: string;
+	releaseDate?: string;
+	language?: string;
+	summary?: string;
+	runtimeLengthMin?: number;
+	seriesPrimary?: AudibleSeries;
+	seriesSecondary?: AudibleSeries;
+	genres?: AudibleGenre[];
+	rating?: number;
+	ratings?: unknown[];
+	image?: string;
+	isbn?: string;
+}
+
+/**
  * Audible API Provider
  * Uses Audnex API (https://api.audnex.us) and official Audible API
  * Based on audiobookshelf implementation
@@ -70,7 +115,7 @@ export class AudibleApiService implements IMetadataProvider {
 			const tld = this.regionMap[this.country] || '.com';
 			const url = `https://api.audible${tld}/1.0/catalog/products?${queryParams.toString()}`;
 			
-			console.log('[Audible] Search URL:', url);
+			console.debug('[Audible] Search URL:', url);
 
 			const response = await requestUrl({
 				url,
@@ -80,13 +125,14 @@ export class AudibleApiService implements IMetadataProvider {
 				}
 			});
 
-			if (!response.json?.products) {
+			const searchResponse = response.json as AudibleSearchResponse;
+			if (!searchResponse?.products) {
 				return [];
 			}
 
 			// Fetch full details for each result via Audnex
 			const results: AudiobookSearchResult[] = [];
-			for (const product of response.json.products.slice(0, 10)) {
+			for (const product of searchResponse.products.slice(0, 10)) {
 				const metadata = await this.asinSearch(product.asin, this.country);
 				if (metadata) {
 					results.push({
@@ -113,7 +159,7 @@ export class AudibleApiService implements IMetadataProvider {
 			asin = encodeURIComponent(asin.toUpperCase());
 			const url = `https://api.audnex.us/books/${asin}?region=${region}`;
 			
-			console.log('[Audible] ASIN URL:', url);
+			console.debug('[Audible] ASIN URL:', url);
 
 			const response = await requestUrl({
 				url,
@@ -123,11 +169,12 @@ export class AudibleApiService implements IMetadataProvider {
 				}
 			});
 
-			if (!response.json?.asin) {
+			const bookDetail = response.json as AudibleBookDetail;
+			if (!bookDetail?.asin) {
 				return null;
 			}
 
-			return this.mapToAudiobookMetadata(response.json);
+			return this.mapToAudiobookMetadata(bookDetail);
 		} catch (error) {
 			console.error('[Audible] ASIN search error:', error);
 			return null;
@@ -137,7 +184,7 @@ export class AudibleApiService implements IMetadataProvider {
 	/**
 	 * Map Audible API response to AudiobookMetadata
 	 */
-	private mapToAudiobookMetadata(data: any): AudiobookMetadata {
+	private mapToAudiobookMetadata(data: AudibleBookDetail): AudiobookMetadata {
 		const series: string[] = [];
 		let seriesPosition: string | undefined;
 
@@ -165,8 +212,8 @@ export class AudibleApiService implements IMetadataProvider {
 		const genres: string[] = [];
 		if (data.genres && Array.isArray(data.genres)) {
 			data.genres
-				.filter((g: any) => g.type === 'genre')
-				.forEach((g: any) => {
+				.filter((g: AudibleGenre) => g.type === 'genre')
+				.forEach((g: AudibleGenre) => {
 					if (g.name && !genres.includes(g.name)) {
 						genres.push(g.name);
 					}
@@ -183,8 +230,8 @@ export class AudibleApiService implements IMetadataProvider {
 			provider: 'audible',
 			title: data.title,
 			subtitle: data.subtitle || undefined,
-			author: data.authors ? data.authors.map((a: any) => a.name) : undefined,
-			narrator: data.narrators ? data.narrators.map((n: any) => n.name) : undefined,
+		author: data.authors ? data.authors.map((a: AudiblePerson) => a.name) : [],
+			narrator: data.narrators ? data.narrators.map((n: AudiblePerson) => n.name) : undefined,
 			publisher: data.publisherName || undefined,
 			publishedDate: data.releaseDate || undefined,
 			language: data.language ? this.capitalizeFirst(data.language) : undefined,

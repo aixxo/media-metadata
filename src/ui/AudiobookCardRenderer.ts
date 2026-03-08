@@ -102,34 +102,34 @@ export class AudiobookCardRenderer {
 				}
 			}
 			
-			const coverImg = coverSection.createEl('img', {
-				cls: 'audiobook-cover',
-				attr: {
-					src: coverSrc,
-					alt: data.title || 'Audiobook cover'
-				}
-			});
-		}
+		coverSection.createEl('img', {
+			cls: 'audiobook-cover',
+			attr: {
+				src: coverSrc,
+				alt: data.title || 'Audiobook cover'
+			}
+		});
+	}
 
-		// Info section
-		const infoSection = card.createDiv({cls: 'audiobook-info'});
+	// Info section
+	const infoSection = card.createDiv({cls: 'audiobook-info'});
 
-		// Title
-		if (data.title) {
-			infoSection.createEl('h3', {
-				cls: 'audiobook-title',
-				text: data.title
-			});
-		}
+	// Title
+	if (data.title) {
+		infoSection.createEl('h3', {
+			cls: 'audiobook-title',
+			text: data.title
+		});
+	}
 
-		// Author
-		if (data.author) {
-			const authorDiv = infoSection.createDiv({cls: 'audiobook-meta-item'});
-			authorDiv.createSpan({cls: 'audiobook-meta-icon', text: '✍️'});
-			authorDiv.createSpan({cls: 'audiobook-meta-text', text: data.author});
-		}
+	// Author
+	if (data.author) {
+		const authorDiv = infoSection.createDiv({cls: 'audiobook-meta-item'});
+		authorDiv.createSpan({cls: 'audiobook-meta-icon', text: '✍️'});
+		authorDiv.createSpan({cls: 'audiobook-meta-text', text: data.author});
+	}
 
-		// Narrator
+	// Narrator
 		if (data.narrator) {
 			const narratorDiv = infoSection.createDiv({cls: 'audiobook-meta-item'});
 			narratorDiv.createSpan({cls: 'audiobook-meta-icon', text: '🎙️'});

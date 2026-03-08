@@ -24,27 +24,29 @@ export class CacheCleanup {
 
 		// Schedule periodic cleanup
 		this.cleanupIntervalId = window.setInterval(
-			() => this.performCleanup(),
+			() => {
+				void this.performCleanup();
+			},
 			this.cleanupInterval
 		);
 
 		// Register with Obsidian for automatic cleanup on unload
 		registerInterval(this.cleanupIntervalId);
 
-		console.log('[CacheCleanup] Automatic cleanup started (runs every 24 hours)');
+		console.debug('[CacheCleanup] Automatic cleanup started (runs every 24 hours)');
 	}
 
 	/**
 	 * Perform cleanup operation
 	 */
 	private async performCleanup(): Promise<void> {
-		console.log('[CacheCleanup] Running scheduled cleanup...');
+		console.debug('[CacheCleanup] Running scheduled cleanup...');
 		const removedCount = await this.cacheService.cleanup();
 		
 		if (removedCount > 0) {
-			console.log(`[CacheCleanup] Removed ${removedCount} expired cache entries`);
+			console.debug(`[CacheCleanup] Removed ${removedCount} expired cache entries`);
 		} else {
-			console.log('[CacheCleanup] No expired entries found');
+			console.debug('[CacheCleanup] No expired entries found');
 		}
 	}
 
@@ -55,7 +57,7 @@ export class CacheCleanup {
 		if (this.cleanupIntervalId !== null) {
 			window.clearInterval(this.cleanupIntervalId);
 			this.cleanupIntervalId = null;
-			console.log('[CacheCleanup] Automatic cleanup stopped');
+			console.debug('[CacheCleanup] Automatic cleanup stopped');
 		}
 	}
 
@@ -63,7 +65,7 @@ export class CacheCleanup {
 	 * Manually trigger cleanup (e.g., from settings or command)
 	 */
 	async manualCleanup(): Promise<number> {
-		console.log('[CacheCleanup] Manual cleanup triggered');
+		console.debug('[CacheCleanup] Manual cleanup triggered');
 		return await this.cacheService.cleanup();
 	}
 }

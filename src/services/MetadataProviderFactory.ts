@@ -1,5 +1,4 @@
 import {IMetadataProvider} from "./IMetadataProvider";
-import {AudiobookMetadata, AudiobookSearchResult} from "../models/AudiobookMetadata";
 import {AudiobookPluginSettings} from "../settings";
 import {RateLimiter} from "../utils/RateLimiter";
 import {CacheService} from "./cache/CacheService";
@@ -61,7 +60,7 @@ export class MetadataProviderFactory {
 			case 'itunes':
 				return new ITunesApiService();
 			default:
-				console.warn(`[ProviderFactory] Unknown provider: ${this.settings.apiProvider}, falling back to Google Books`);
+				console.warn(`[ProviderFactory] Unknown provider: ${this.settings.apiProvider as string}, falling back to Google Books`);
 				return new GoogleBooksApiService();
 		}
 	}
@@ -142,7 +141,7 @@ export class MetadataProviderFactory {
 		
 		// Reset rate limiters if settings changed
 		if (settings.rateLimitEnabled) {
-			for (const [providerId, limiter] of this.rateLimiters.entries()) {
+			for (const limiter of this.rateLimiters.values()) {
 				limiter.reset();
 			}
 		}

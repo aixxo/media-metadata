@@ -1,5 +1,46 @@
 import {IMetadataProvider} from "./IMetadataProvider";
 import {AudiobookMetadata, AudiobookSearchResult} from "../models/AudiobookMetadata";
+import {requestUrl} from "obsidian";
+
+/**
+ * Google Books API Response Interfaces
+ */
+interface GoogleBooksSearchResponse {
+	items?: GoogleBooksItem[];
+}
+
+interface GoogleBooksItem {
+	id: string;
+	volumeInfo: GoogleBooksVolumeInfo;
+	saleInfo?: GoogleBooksSaleInfo;
+}
+
+interface GoogleBooksVolumeInfo {
+	title?: string;
+	subtitle?: string;
+	authors?: string[];
+	publisher?: string;
+	publishedDate?: string;
+	language?: string;
+	description?: string;
+	categories?: string[];
+	averageRating?: number;
+	ratingsCount?: number;
+	imageLinks?: {
+		thumbnail?: string;
+	};
+	industryIdentifiers?: GoogleBooksIdentifier[];
+	infoLink?: string;
+}
+
+interface GoogleBooksSaleInfo {
+	buyLink?: string;
+}
+
+interface GoogleBooksIdentifier {
+	type: string;
+	identifier: string;
+}
 
 /**
  * Google Books API Provider
@@ -29,14 +70,12 @@ export class GoogleBooksApiService implements IMetadataProvider {
 
 	async fetchById(id: string): Promise<AudiobookMetadata | null> {
 		try {
-			const response = await fetch(`${this.apiBaseUrl}/${id}`);
-			
-			if (!response.ok) {
-				console.error('[GoogleBooks] API error:', response.status, response.statusText);
-				return null;
-			}
+			const response = await requestUrl({
+				url: `${this.apiBaseUrl}/${id}`,
+				method: 'GET'
+			});
 
-			const data = await response.json();
+			const data = response.json as GoogleBooksItem;
 			return this.mapToAudiobookMetadata(data);
 		} catch (error) {
 			console.error('[GoogleBooks] Fetch error:', error);
@@ -47,20 +86,18 @@ export class GoogleBooksApiService implements IMetadataProvider {
 	async search(query: string): Promise<AudiobookSearchResult[]> {
 		try {
 			const encodedQuery = encodeURIComponent(query);
-			const response = await fetch(`${this.apiBaseUrl}?q=${encodedQuery}&maxResults=10`);
-			
-			if (!response.ok) {
-				console.error('[GoogleBooks] Search API error:', response.status);
-				return [];
-			}
+			const response = await requestUrl({
+				url: `${this.apiBaseUrl}?q=${encodedQuery}&maxResults=10`,
+				method: 'GET'
+			});
 
-			const data = await response.json();
+			const data = response.json as GoogleBooksSearchResponse;
 			
 			if (!data.items || data.items.length === 0) {
 				return [];
 			}
 
-			return data.items.map((item: any) => ({
+			return data.items.map((item: GoogleBooksItem) => ({
 				metadata: this.mapToAudiobookMetadata(item),
 				relevanceScore: undefined
 			}));
@@ -73,9 +110,9 @@ export class GoogleBooksApiService implements IMetadataProvider {
 	/**
 	 * Map Google Books API response to AudiobookMetadata
 	 */
-	private mapToAudiobookMetadata(data: any): AudiobookMetadata {
-		const volumeInfo = data.volumeInfo || {};
-		const saleInfo = data.saleInfo || {};
+	private mapToAudiobookMetadata(data: GoogleBooksItem): AudiobookMetadata {
+		const volumeInfo = data.volumeInfo;
+		const saleInfo = data.saleInfo;
 
 		return {
 			id: data.id,
@@ -94,14 +131,14 @@ export class GoogleBooksApiService implements IMetadataProvider {
 			isbn: this.extractIsbn(volumeInfo.industryIdentifiers, '10'),
 			isbn13: this.extractIsbn(volumeInfo.industryIdentifiers, '13'),
 			retrievedAt: new Date().toISOString(),
-			url: volumeInfo.infoLink || saleInfo.buyLink
+			url: volumeInfo.infoLink || saleInfo?.buyLink
 		};
 	}
 
 	/**
 	 * Extract ISBN from industry identifiers
 	 */
-	private extractIsbn(identifiers: any[] | undefined, type: '10' | '13'): string | undefined {
+	private extractIsbn(identifiers: GoogleBooksIdentifier[] | undefined, type: '10' | '13'): string | undefined {
 		if (!identifiers) return undefined;
 		
 		const targetType = type === '10' ? 'ISBN_10' : 'ISBN_13';

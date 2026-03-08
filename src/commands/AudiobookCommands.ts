@@ -1,4 +1,4 @@
-import {App, Notice, TFile} from "obsidian";
+import {App, Notice} from "obsidian";
 import {AudiobookPluginSettings} from "../settings";
 import {MetadataProviderFactory} from "../services/MetadataProviderFactory";
 import {FileCreator} from "../services/FileCreator";
@@ -26,15 +26,15 @@ export class AudiobookCommands {
 	 */
 	async addFromUrl() {
 		// Open modal with URL tab
-		const provider = await this.providerFactory.getProvider();
+		const provider = this.providerFactory.getProvider();
 		
 		const modal = new AudiobookInputModal(
 			this.app,
 			provider,
 			this.settings.offlineMode,
-			async (metadata) => {
+			(metadata) => {
 				if (metadata) {
-					await this.fileCreator.createAudiobookFile(metadata);
+					void this.fileCreator.createAudiobookFile(metadata);
 				}
 			},
 			'url'
@@ -52,15 +52,15 @@ export class AudiobookCommands {
 			return;
 		}
 
-		const provider = await this.providerFactory.getProvider();
+		const provider = this.providerFactory.getProvider();
 		
 		const modal = new AudiobookInputModal(
 			this.app,
 			provider,
 			this.settings.offlineMode,
-			async (metadata) => {
+			(metadata) => {
 				if (metadata) {
-					await this.fileCreator.createAudiobookFile(metadata);
+					void this.fileCreator.createAudiobookFile(metadata);
 				}
 			},
 			'search'
@@ -78,15 +78,15 @@ export class AudiobookCommands {
 			return;
 		}
 
-		const provider = await this.providerFactory.getProvider();
+		const provider = this.providerFactory.getProvider();
 		
 		const modal = new AudiobookInputModal(
 			this.app,
 			provider,
 			this.settings.offlineMode,
-			async (metadata) => {
+			(metadata) => {
 				if (metadata) {
-					await this.fileCreator.createAudiobookFile(metadata);
+					void this.fileCreator.createAudiobookFile(metadata);
 				}
 			},
 			'id'
@@ -123,7 +123,7 @@ export class AudiobookCommands {
 			const asin = this.extractFrontmatterField(content, 'asin');
 			const isbn = this.extractFrontmatterField(content, 'isbn');
 
-			const provider = await this.providerFactory.getProvider();
+			const provider = this.providerFactory.getProvider();
 			let metadata = null;
 
 			if (sourceUrl) {
