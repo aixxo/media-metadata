@@ -199,6 +199,218 @@
 	overflow-y: auto;
 }
 
+/* Custom Frontmatter Fields Table */
+.custom-fields-table-container {
+	margin: 1rem 0;
+	border: 1px solid var(--background-modifier-border);
+	border-radius: 6px;
+	overflow: hidden;
+}
+
+.custom-fields-table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+.custom-fields-table th {
+	background-color: var(--background-secondary);
+	padding: 0.75rem;
+	text-align: left;
+	font-weight: 600;
+	color: var(--text-normal);
+	border-bottom: 1px solid var(--background-modifier-border);
+}
+
+.custom-fields-table td {
+	padding: 0.5rem;
+	border-bottom: 1px solid var(--background-modifier-border);
+}
+
+.custom-fields-table tbody tr:last-child td {
+	border-bottom: none;
+}
+
+.custom-fields-table tbody tr:hover {
+	background-color: var(--background-primary-alt);
+}
+
+.custom-fields-table input[type="text"],
+.custom-fields-table select {
+	width: 100%;
+	padding: 0.4rem 0.6rem;
+	background-color: var(--background-primary);
+	border: 1px solid var(--background-modifier-border);
+	border-radius: 4px;
+	color: var(--text-normal);
+	font-size: 0.9rem;
+}
+
+.custom-fields-table input[type="text"]:focus,
+.custom-fields-table select:focus {
+	outline: none;
+	border-color: var(--text-accent);
+	box-shadow: 0 0 0 2px var(--text-accent-hover);
+}
+
+.custom-fields-actions {
+	white-space: nowrap;
+	text-align: center;
+}
+
+.custom-fields-actions button {
+	padding: 0.3rem 0.6rem;
+	margin: 0 0.2rem;
+	background-color: var(--background-secondary);
+	border: 1px solid var(--background-modifier-border);
+	border-radius: 4px;
+	color: var(--text-normal);
+	cursor: pointer;
+	font-size: 0.9rem;
+	transition: all 0.2s ease;
+}
+
+.custom-fields-actions button:hover {
+	background-color: var(--background-modifier-hover);
+	transform: translateY(-1px);
+}
+
+.custom-fields-delete {
+	color: var(--text-error) !important;
+}
+
+.custom-fields-delete:hover {
+	background-color: var(--background-modifier-error) !important;
+}
+
+/* Batch Update Modal */
+.batch-update-info {
+	margin: 1rem 0;
+	padding: 1rem;
+	background-color: var(--background-secondary);
+	border-radius: 6px;
+}
+
+.batch-update-info p {
+	margin: 0.5rem 0;
+}
+
+.batch-update-info ul {
+	margin: 0.5rem 0;
+	padding-left: 1.5rem;
+}
+
+.batch-update-note {
+	font-style: italic;
+	color: var(--text-muted);
+	font-size: 0.9rem;
+}
+
+.batch-update-summary {
+	margin: 1rem 0;
+	padding: 1rem;
+	background-color: var(--background-secondary);
+	border-radius: 6px;
+}
+
+.batch-update-buttons {
+	margin: 1rem 0;
+}
+
+.batch-update-file-list {
+	max-height: 400px;
+	overflow-y: auto;
+	border: 1px solid var(--background-modifier-border);
+	border-radius: 6px;
+	padding: 0.5rem;
+	margin: 1rem 0;
+}
+
+.batch-update-file-item {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 0.5rem;
+	border-radius: 4px;
+	transition: background-color 0.2s ease;
+}
+
+.batch-update-file-item:hover {
+	background-color: var(--background-primary-alt);
+}
+
+.batch-update-file-item input[type="checkbox"] {
+	cursor: pointer;
+}
+
+.batch-update-file-path {
+	flex-grow: 1;
+	font-size: 0.9rem;
+	color: var(--text-normal);
+}
+
+.batch-update-actions {
+	margin-top: 1.5rem;
+	padding-top: 1rem;
+	border-top: 1px solid var(--background-modifier-border);
+}
+
+.batch-update-progress {
+	margin: 2rem 0;
+}
+
+.batch-update-progress p {
+	margin-bottom: 1rem;
+	font-size: 0.95rem;
+}
+
+.batch-update-progress-bar {
+	width: 100%;
+	height: 24px;
+	background-color: var(--background-secondary);
+	border: 1px solid var(--background-modifier-border);
+	border-radius: 12px;
+	overflow: hidden;
+}
+
+.batch-update-progress-fill {
+	height: 100%;
+	background: linear-gradient(90deg, var(--text-accent), var(--text-accent-hover));
+	transition: width 0.3s ease;
+	border-radius: 12px;
+}
+
+.batch-update-results {
+	max-height: 400px;
+	overflow-y: auto;
+	border: 1px solid var(--background-modifier-border);
+	border-radius: 6px;
+	padding: 0.5rem;
+	margin: 1rem 0;
+}
+
+.batch-update-result-success,
+.batch-update-result-error {
+	padding: 0.5rem;
+	margin: 0.25rem 0;
+	border-radius: 4px;
+	font-size: 0.9rem;
+}
+
+.batch-update-result-success {
+	background-color: var(--background-modifier-success);
+	color: var(--text-success);
+}
+
+.batch-update-result-error {
+	background-color: var(--background-modifier-error);
+	color: var(--text-error);
+}
+
+.batch-update-error {
+	color: var(--text-error);
+	font-weight: 500;
+}
+
 .audiobook-search-empty {
 	padding: 2rem;
 	text-align: center;

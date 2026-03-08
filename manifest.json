@@ -1,10 +1,10 @@
 {
 	"id": "audiobook-metadata",
 	"name": "Audiobook Metadata",
-	"version": "0.2.2",
+	"version": "0.3.0",
 	"minAppVersion": "0.15.0",
 	"description": "Retrieve audiobook metadata from Audible, Google Books, Open Library, and iTunes. Creates formatted markdown files with frontmatter and beautiful media cards.",
-	"author": "okuhl",
+	"author": "aixxo",
 	"authorUrl": "",
 	"fundingUrl": "",
 	"isDesktopOnly": false

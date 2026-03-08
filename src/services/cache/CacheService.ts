@@ -12,7 +12,7 @@ interface CacheEntry {
 /**
  * Cache data structure for persistence
  */
-interface CacheData {
+export interface CacheData {
 	entries: Record<string, CacheEntry>;
 }
 
@@ -49,7 +49,7 @@ export class CacheService {
 						this.cache.set(key, entry);
 					}
 				}
-				console.log(`[CacheService] Loaded ${this.cache.size} valid cache entries`);
+				console.debug(`[CacheService] Loaded ${this.cache.size} valid cache entries`);
 			}
 		} catch (error) {
 			console.error('[CacheService] Error loading cache:', error);
@@ -86,11 +86,11 @@ export class CacheService {
 
 		if (this.isExpired(entry)) {
 			this.cache.delete(key);
-			console.log(`[CacheService] Cache expired for ${key}`);
+			console.debug(`[CacheService] Cache expired for ${key}`);
 			return null;
 		}
 
-		console.log(`[CacheService] Cache hit for ${key}`);
+		console.debug(`[CacheService] Cache hit for ${key}`);
 		return entry.data;
 	}
 
@@ -117,7 +117,7 @@ export class CacheService {
 		};
 
 		this.cache.set(key, entry);
-		console.log(`[CacheService] Cached ${key} with TTL ${ttlHours || this.defaultTtlHours}h`);
+		console.debug(`[CacheService] Cached ${key} with TTL ${ttlHours || this.defaultTtlHours}h`);
 
 		await this.persist();
 	}
@@ -128,7 +128,7 @@ export class CacheService {
 	async clear(): Promise<void> {
 		this.cache.clear();
 		await this.persist();
-		console.log('[CacheService] Cache cleared');
+		console.debug('[CacheService] Cache cleared');
 	}
 
 	/**
@@ -136,7 +136,6 @@ export class CacheService {
 	 * @returns Number of entries removed
 	 */
 	async cleanup(): Promise<number> {
-		const initialSize = this.cache.size;
 		const keysToDelete: string[] = [];
 
 		for (const [key, entry] of this.cache.entries()) {
@@ -151,7 +150,7 @@ export class CacheService {
 
 		if (keysToDelete.length > 0) {
 			await this.persist();
-			console.log(`[CacheService] Cleaned up ${keysToDelete.length} expired entries`);
+			console.debug(`[CacheService] Cleaned up ${keysToDelete.length} expired entries`);
 		}
 
 		return keysToDelete.length;

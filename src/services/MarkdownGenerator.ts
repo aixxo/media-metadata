@@ -1,9 +1,13 @@
 import {AudiobookMetadata} from "../models/AudiobookMetadata";
+import {AudiobookPluginSettings, CustomFrontmatterField} from "../settings";
+import {getSortedCustomFields} from "../utils/TypeGuards";
 
 /**
  * Service for generating markdown files from audiobook metadata
  */
 export class MarkdownGenerator {
+	constructor(private settings: AudiobookPluginSettings) {}
+
 	/**
 	 * Generate complete markdown content with frontmatter and audiobook code block
 	 */
@@ -25,6 +29,14 @@ export class MarkdownGenerator {
 	 */
 	private generateFrontmatter(metadata: AudiobookMetadata): string {
 		const lines: string[] = ['---'];
+
+		// Add custom fields at start if configured
+		if (this.settings.customFieldsPosition === 'start') {
+			const customLines = this.generateCustomFrontmatter();
+			if (customLines.length > 0) {
+				lines.push(...customLines);
+			}
+		}
 
 		// Basic information
 		lines.push(`title: "${this.escapeYaml(metadata.title)}"`);
@@ -131,6 +143,14 @@ export class MarkdownGenerator {
 			lines.push(`retrieved_at: "${metadata.retrievedAt}"`);
 		}
 
+		// Add custom fields at end if configured
+		if (this.settings.customFieldsPosition === 'end') {
+			const customLines = this.generateCustomFrontmatter();
+			if (customLines.length > 0) {
+				lines.push(...customLines);
+			}
+		}
+
 		lines.push('---');
 		return lines.join('\n');
 	}
@@ -220,6 +240,52 @@ export class MarkdownGenerator {
 	 */
 	private escapeYaml(str: string): string {
 		return str.replace(/"/g, '\\"').replace(/\n/g, ' ');
+	}
+
+	/**
+	 * Generate custom frontmatter fields from settings
+	 */
+	private generateCustomFrontmatter(): string[] {
+		const lines: string[] = [];
+
+		// Sort fields by order
+		const sortedFields = getSortedCustomFields(this.settings.customFrontmatterFields);
+
+		/* eslint-disable @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-argument */
+		sortedFields.forEach((field: CustomFrontmatterField) => {
+			// Skip fields with empty keys
+			if (!field.key.trim()) {
+				return;
+			}
+
+			const key = field.key.trim();
+			const value = field.value;
+
+			// Format value based on type
+			let formattedValue: string;
+			if (field.type === 'string') {
+				formattedValue = `"${this.escapeYaml(value)}"`;
+			} else if (field.type === 'number') {
+				// Parse as number, fallback to 0 if invalid
+				const numValue = parseFloat(value);
+				formattedValue = isNaN(numValue) ? '0' : numValue.toString();
+			} else if (field.type === 'boolean') {
+				// Parse as boolean (case-insensitive true/false, yes/no, 1/0)
+				const lowercaseValue = value.toLowerCase().trim();
+				const boolValue = lowercaseValue === 'true' || 
+								  lowercaseValue === 'yes' || 
+								  lowercaseValue === '1';
+				formattedValue = boolValue.toString();
+			} else {
+				// Default to string
+				formattedValue = `"${this.escapeYaml(value)}"`;
+			}
+
+			lines.push(`${key}: ${formattedValue}`);
+		});
+		/* eslint-enable @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-argument */
+
+		return lines;
 	}
 
 	/**

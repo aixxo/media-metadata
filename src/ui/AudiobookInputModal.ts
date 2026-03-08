@@ -42,7 +42,7 @@ export class AudiobookInputModal extends Modal {
 		const {contentEl} = this;
 		contentEl.empty();
 		
-		contentEl.createEl('h2', {text: 'Add Audiobook Metadata'});
+		contentEl.createEl('h2', {text: 'Add audiobook metadata'});
 
 		// Create tabs
 		this.createTabs(contentEl);
@@ -127,7 +127,7 @@ export class AudiobookInputModal extends Modal {
 
 		new Setting(this.urlTabContent)
 			.setName('Audiobook URL')
-			.setDesc('Enter the URL from Audible, Google Books, Open Library, or iTunes')
+			.setDesc('Enter a URL from any supported provider')
 			.addText(text => {
 				text.setPlaceholder('https://www.audible.com/pd/...');
 				text.onChange(value => urlInput = value);
@@ -146,7 +146,7 @@ export class AudiobookInputModal extends Modal {
 
 		new Setting(this.urlTabContent)
 			.addButton(btn => {
-				btn.setButtonText('Fetch Metadata')
+				btn.setButtonText('Fetch metadata')
 					.setCta()
 					.onClick(async () => {
 						if (!urlInput) {
@@ -169,7 +169,7 @@ export class AudiobookInputModal extends Modal {
 			.setName('Search')
 			.setDesc('Search for audiobooks by title, author, or keyword')
 			.addText(text => {
-				text.setPlaceholder('Title or Author');
+				text.setPlaceholder('Title or author');
 				text.onChange(value => searchQuery = value);
 				
 				// Add Enter key listener
@@ -206,9 +206,9 @@ export class AudiobookInputModal extends Modal {
 
 		new Setting(this.idTabContent)
 			.setName('Audiobook ID')
-			.setDesc('Enter the ASIN, ISBN, or provider-specific ID')
+			.setDesc('Enter a book identifier from any provider')
 			.addText(text => {
-				text.setPlaceholder('B07XYZ123 or 9781234567890');
+			text.setPlaceholder('B07XYZ123');
 				text.onChange(value => idInput = value);
 				
 				// Add Enter key listener
@@ -225,7 +225,7 @@ export class AudiobookInputModal extends Modal {
 
 		new Setting(this.idTabContent)
 			.addButton(btn => {
-				btn.setButtonText('Fetch Metadata')
+				btn.setButtonText('Fetch metadata')
 					.setCta()
 					.onClick(async () => {
 						if (!idInput) {
@@ -276,7 +276,7 @@ export class AudiobookInputModal extends Modal {
 			.setName('Author(s)')
 			.setDesc('Separate multiple authors with commas')
 			.addText(text => {
-				text.setPlaceholder('Author Name');
+				text.setPlaceholder('Author name');
 				text.onChange(value => {
 					metadata.author = value.split(',').map(a => a.trim()).filter(a => a);
 				});
@@ -287,7 +287,7 @@ export class AudiobookInputModal extends Modal {
 			.setName('Narrator(s)')
 			.setDesc('Separate multiple narrators with commas')
 			.addText(text => {
-				text.setPlaceholder('Narrator Name');
+				text.setPlaceholder('Narrator name');
 				text.onChange(value => {
 					metadata.narrator = value.split(',').map(n => n.trim()).filter(n => n);
 				});
@@ -305,7 +305,7 @@ export class AudiobookInputModal extends Modal {
 		new Setting(this.manualTabContent)
 			.setName('Publisher')
 			.addText(text => {
-				text.setPlaceholder('Publisher Name');
+				text.setPlaceholder('Publisher name');
 				text.onChange(value => metadata.publisher = value);
 				addEnterListener(text);
 			});
@@ -313,7 +313,7 @@ export class AudiobookInputModal extends Modal {
 		new Setting(this.manualTabContent)
 			.setName('Cover URL')
 			.addText(text => {
-				text.setPlaceholder('https://...');
+				text.setPlaceholder('Cover URL');
 				text.onChange(value => metadata.coverUrl = value);
 				addEnterListener(text);
 			});
@@ -396,8 +396,8 @@ export class AudiobookInputModal extends Modal {
 				}
 
 				const selectBtn = resultItem.createEl('button', {text: 'Select', cls: 'mod-cta'});
-				selectBtn.addEventListener('click', async () => {
-					await this.fetchById(metadata.id);
+				selectBtn.addEventListener('click', () => {
+					void this.fetchById(metadata.id);
 				});
 			});
 		} catch (error) {

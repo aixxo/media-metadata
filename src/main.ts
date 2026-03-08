@@ -2,7 +2,7 @@ import {Plugin, Notice} from 'obsidian';
 import {DEFAULT_SETTINGS, AudiobookPluginSettings, AudiobookSettingTab} from "./settings";
 import {AudiobookCardRenderer} from "./ui/AudiobookCardRenderer";
 import {AudiobookCommands} from "./commands/AudiobookCommands";
-import {CacheService} from "./services/cache/CacheService";
+import {CacheService, CacheData} from "./services/cache/CacheService";
 import {CacheCleanup} from "./services/cache/CacheCleanup";
 
 export default class AudiobookMetadataPlugin extends Plugin {
@@ -19,11 +19,11 @@ export default class AudiobookMetadataPlugin extends Plugin {
 		this.cacheService = new CacheService(
 			this.settings.cacheDurationHours,
 			async () => {
-				const data = await this.loadData() as any;
-				return data?.cache || null;
+				const data = await this.loadData() as { cache?: CacheData } | null;
+				return data?.cache ?? null;
 			},
 			async (cacheData) => {
-				const existingData = await this.loadData() as any || {};
+				const existingData = (await this.loadData() as Record<string, unknown> | null) || {};
 				existingData.cache = cacheData;
 				await this.saveData(existingData);
 			}
@@ -73,7 +73,7 @@ export default class AudiobookMetadataPlugin extends Plugin {
 
 		this.addCommand({
 			id: 'add-audiobook-from-id',
-			name: 'Add audiobook from ID (ASIN/ISBN)',
+			name: 'Add audiobook from identifier',
 			callback: async () => {
 				try {
 					await this.commands.addFromId();
@@ -86,8 +86,8 @@ export default class AudiobookMetadataPlugin extends Plugin {
 		});
 
 		this.addCommand({
-			id: 'refresh-audiobook-metadata',
-			name: 'Refresh audiobook metadata',
+			id: 'refresh-metadata',
+			name: 'Refresh metadata',
 			callback: async () => {
 				try {
 					await this.commands.refreshMetadata();
@@ -100,11 +100,11 @@ export default class AudiobookMetadataPlugin extends Plugin {
 		});
 
 		this.addCommand({
-			id: 'clear-audiobook-cache',
-			name: 'Clear audiobook metadata cache',
+			id: 'clear-cache',
+			name: 'Clear metadata cache',
 			callback: () => {
 				try {
-					this.commands.clearCache();
+					void this.commands.clearCache();
 				} catch (error) {
 					console.error('Error in clearCache:', error);
 					const errorMessage = error instanceof Error ? error.message : 'Unknown error';

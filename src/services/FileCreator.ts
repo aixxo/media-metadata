@@ -1,4 +1,4 @@
-import {App, Notice, TFile, Vault} from "obsidian";
+import {App, Notice, TFile} from "obsidian";
 import {AudiobookMetadata} from "../models/AudiobookMetadata";
 import {MarkdownGenerator} from "./MarkdownGenerator";
 import {ImageDownloadService} from "./ImageDownloadService";
@@ -15,7 +15,7 @@ export class FileCreator {
 		private app: App,
 		private settings: AudiobookPluginSettings
 	) {
-		this.markdownGenerator = new MarkdownGenerator();
+		this.markdownGenerator = new MarkdownGenerator(settings);
 		this.imageDownloadService = new ImageDownloadService(app, settings);
 	}
 
