@@ -1,82 +1,82 @@
-# Audiobook Metadata Plugin für Obsidian
+# Audiobook Metadata Plugin for Obsidian
 
-Ein Obsidian Community Plugin zum Abrufen und Verwalten von Audiobook-Metadaten mit Unterstützung für mehrere Anbieter.
+An Obsidian Community Plugin for retrieving and managing audiobook metadata with support for multiple providers.
 
 ## ⚠️ Disclaimer
 
-**WICHTIG:** Dieses Plugin wurde unter Verwendung von KI (GitHub Copilot) erstellt. Bitte beachten Sie:
+**IMPORTANT:** This plugin was created using AI (GitHub Copilot). Please note:
 
-- **Erstellen Sie vor der Verwendung ein vollständiges Backup Ihres Vaults**
-- **Nutzung auf eigene Gefahr**
-- Das Plugin befindet sich in aktiver Entwicklung und kann Fehler enthalten
-- Testen Sie das Plugin zunächst in einem Test-Vault, bevor Sie es produktiv einsetzen
+- **Create a complete backup of your vault before using**
+- **Use at your own risk**
+- The plugin is in active development and may contain bugs
+- Test the plugin in a test vault first before using it productively
 
 ## Features
 
-### 📚 Multi-Provider Unterstützung
-- **Audible** (vollständig implementiert - DE, UK, US)
-- **Google Books API** (vollständig implementiert)
-- **Open Library** (Placeholder, in Entwicklung)
-- **iTunes/Apple Books** (Placeholder, in Entwicklung)
+### 📚 Multi-Provider Support
+- **Audible** (fully implemented - DE, UK, US)
+- **Google Books API** (fully implemented)
+- **Open Library** (Placeholder, in development)
+- **iTunes/Apple Books** (Placeholder, in development)
 
-### 🎯 Flexible Dateneingabe
-- **URL-Import**: Direkt von Provider-URLs
-- **Suche**: Suchen Sie nach Titel, Autor oder Stichwort
-- **ID-Import**: Über ASIN, ISBN oder Provider-spezifische IDs
-- **Manuelle Eingabe**: Offline-Modus für manuelle Dateneingabe
+### 🎯 Flexible Data Input
+- **URL Import**: Directly from provider URLs
+- **Search**: Search by title, author, or keyword
+- **ID Import**: Via ASIN, ISBN, or provider-specific IDs
+- **Manual Entry**: Offline mode for manual data entry
 
-### 🎨 Markdown-Integration
-- **YAML Frontmatter**: Strukturierte Metadaten in Frontmatter
-- **Audiobook-Karten**: Visuelle Darstellung mit Cover, Rating, Genres
-- **Custom Code Blocks**: Verwenden Sie `audiobook` Code-Blöcke für visuelle Karten
+### 🎨 Markdown Integration
+- **YAML Frontmatter**: Structured metadata in frontmatter
+- **Audiobook Cards**: Visual representation with cover, rating, genres
+- **Custom Code Blocks**: Use `audiobook` code blocks for visual cards
 
-### ⚡ Performance-Features
-- **Rate Limiting**: Konfigurierbar (1-20 Anfragen/Minute, Standard: 5)
-- **Intelligenter Cache**: TTL-basiert mit automatischem Cleanup (1-168h, Standard: 24h)
-- **Persistenter Storage**: Cache überlebt Obsidian-Neustarts
+### ⚡ Performance Features
+- **Rate Limiting**: Configurable (1-20 requests/minute, default: 5)
+- **Intelligent Cache**: TTL-based with automatic cleanup (1-168h, default: 24h)
+- **Persistent Storage**: Cache survives Obsidian restarts
 
-### 🖼️ Cover-Management
-- **Lokale Speicherung**: Cover als Dateien im Vault (Standard)
-- **URL-Modus**: Verwenden Sie externe URLs ohne Download
-- **Automatische Organisation**: Covers in `_covers/` Unterordner
+### 🖼️ Cover Management
+- **Local Storage**: Covers as files in vault (default)
+- **URL Mode**: Use external URLs without download
+- **Automatic Organization**: Covers in `_covers/` subfolder
 
-### 🛠️ Konfigurierbar
-- **Output-Ordner**: Wählbarer Zielordner (Standard: "Audiobooks")
-- **Offline-Modus**: Arbeiten Sie ohne API-Zugriff
-- **Provider-Auswahl**: Wechseln Sie zwischen verschiedenen Datenquellen
-- **Audible-Region**: Wählen Sie zwischen DE, UK, US
+### 🛠️ Configurable
+- **Output Folder**: Selectable target folder (default: "Audiobooks")
+- **Offline Mode**: Work without API access
+- **Provider Selection**: Switch between different data sources
+- **Audible Region**: Choose between DE, UK, US
 
 ## Installation
 
-### Manuell
-1. Laden Sie `main.js`, `manifest.json` und `styles.css` aus dem neuesten Release herunter
-2. Erstellen Sie einen Ordner: `<Vault>/.obsidian/plugins/audiobook-metadata/`
-3. Kopieren Sie die drei Dateien in diesen Ordner
-4. Starten Sie Obsidian neu oder laden Sie die Plugins neu
-5. Aktivieren Sie das Plugin in **Einstellungen → Community Plugins**
+### Manual
+1. Download `main.js`, `manifest.json`, and `styles.css` from the latest release
+2. Create a folder: `<Vault>/.obsidian/plugins/audiobook-metadata/`
+3. Copy the three files into this folder
+4. Restart Obsidian or reload plugins
+5. Enable the plugin in **Settings → Community Plugins**
 
-### Aus dem Community Store (geplant)
-1. Öffnen Sie **Einstellungen → Community Plugins → Durchsuchen**
-2. Suchen Sie nach "Audiobook Metadata"
-3. Klicken Sie auf **Installieren** und dann auf **Aktivieren**
+### From Community Store (planned)
+1. Open **Settings → Community Plugins → Browse**
+2. Search for "Audiobook Metadata"
+3. Click **Install** and then **Enable**
 
-## Verwendung
+## Usage
 
 ### Commands
 
-Alle Commands sind über die Command Palette verfügbar (Strg/Cmd + P):
+All commands are available via the Command Palette (Ctrl/Cmd + P):
 
-| Command | Beschreibung | Shortcut |
-|---------|--------------|----------|
-| **Add audiobook from URL** | Metadaten von einer Provider-URL abrufen | - |
-| **Search and add audiobook** | Nach Audiobüchern suchen und hinzufügen | - |
-| **Add audiobook from ID (ASIN/ISBN)** | Direkt über ID importieren | - |
-| **Refresh audiobook metadata** | Metadaten für aktuelle Datei aktualisieren | - |
-| **Clear audiobook metadata cache** | Cache manuell leeren | - |
+| Command | Description | Shortcut |
+|---------|-------------|----------|
+| **Add audiobook from URL** | Fetch metadata from a provider URL | - |
+| **Search and add audiobook** | Search for and add audiobooks | - |
+| **Add audiobook from ID (ASIN/ISBN)** | Import directly via ID | - |
+| **Refresh audiobook metadata** | Update metadata for current file | - |
+| **Clear audiobook metadata cache** | Manually clear cache | - |
 
-### Audiobook-Karten in Markdown
+### Audiobook Cards in Markdown
 
-Fügen Sie eine visuelle Audiobuch-Karte ein, indem Sie einen `audiobook` Code-Block erstellen:
+Insert a visual audiobook card by creating an `audiobook` code block:
 
 ````markdown
 ```audiobook
@@ -92,19 +92,19 @@ series: "Die Königsmörder-Chronik - Buch 1"
 ```
 ````
 
-**Die Karte rendert automatisch mit:**
-- 📷 Cover-Bild (falls vorhanden)
-- 📖 Titel und Autor
-- 🎙️ Sprecher/Narrator
-- ⏱️ Dauer
-- 📚 Verlag
-- ⭐ Sterne-Rating mit numerischem Wert
-- 🏷️ Genre-Tags (Pill-Style)
-- 📕 Serien-Information (falls zutreffend)
+**The card automatically renders with:**
+- 📷 Cover image (if available)
+- 📖 Title and author
+- 🎙️ Narrator
+- ⏱️ Duration
+- 📚 Publisher
+- ⭐ Star rating with numeric value
+- 🏷️ Genre tags (pill-style)
+- 📕 Series information (if applicable)
 
-### Beispiel: Vollständiges Audiobook
+### Example: Complete Audiobook
 
-Nach Import über Command "Add audiobook from URL" erstellt das Plugin automatisch eine Datei wie:
+After importing via command "Add audiobook from URL", the plugin automatically creates a file like:
 
 ```markdown
 ---
@@ -148,120 +148,120 @@ series: "Die Königsmörder-Chronik - Buch 1"
 
 ## Description
 
-[API-Beschreibung wird hier eingefügt]
+[API description will be inserted here]
 
 ## Notes
 
 <!-- Add your notes here -->
 ```
 
-### Workflow-Beispiele
+### Workflow Examples
 
-#### 1. Import von Google Books URL
+#### 1. Import from Google Books URL
 ```
-1. Kopieren Sie die URL: https://books.google.com/books?id=abc123
-2. Öffnen Sie Command Palette (Cmd/Ctrl + P)
-3. Wählen Sie "Add audiobook from URL"
-4. Tab "URL" ist bereits aktiv
-5. Fügen Sie die URL ein → "Fetch Metadata"
-6. Datei wird automatisch erstellt und geöffnet
+1. Copy the URL: https://books.google.com/books?id=abc123
+2. Open Command Palette (Cmd/Ctrl + P)
+3. Select "Add audiobook from URL"
+4. "URL" tab is already active
+5. Paste the URL → "Fetch Metadata"
+6. File is automatically created and opened
 ```
 
-#### 2. Suche nach Titel
+#### 2. Search by Title
 ```
 1. Command Palette → "Search and add audiobook"
-2. Wechseln Sie zum Tab "Search"
-3. Geben Sie ein: "Harry Potter"
-4. Klicken Sie "Search"
-5. Wählen Sie aus den Suchergebnissen
-6. Datei wird erstellt
+2. Switch to "Search" tab
+3. Enter: "Harry Potter"
+4. Click "Search"
+5. Select from search results
+6. File is created
 ```
 
-#### 3. Offline/Manuelle Eingabe
+#### 3. Offline/Manual Entry
 ```
-1. Aktivieren Sie "Offline Mode" in Settings
+1. Enable "Offline Mode" in Settings
 2. Command Palette → "Add audiobook from URL"
-3. Tab "Manual" wird automatisch gewählt
-4. Füllen Sie Felder aus (Titel erforderlich)
-5. Klicken Sie "Create"
+3. "Manual" tab is automatically selected
+4. Fill in fields (title required)
+5. Click "Create"
 ```
 
-## Einstellungen
+## Settings
 
 ### General Settings
 
 **Default Output Folder**
-- Standard: `Audiobooks`
-- Zielordner für neue Audiobook-Dateien
+- Default: `Audiobooks`
+- Target folder for new audiobook files
 
 ### API Provider
 
 **API Provider**
-- **Audible** (Standard): Audiobook-spezifisch mit vollständigen Metadaten (Sprecher, Serien, etc.)
-- **Google Books**: Sofort einsatzbereit, umfangreiche Bibliothek (aber weniger Audiobook-Daten)
-- **Open Library**: Freie Bibliothek, in Entwicklung  
-- **iTunes/Apple Books**: Apple Ökosystem, in Entwicklung
+- **Audible** (Default): Audiobook-specific with complete metadata (narrator, series, etc.)
+- **Google Books**: Ready to use, extensive library (but less audiobook data)
+- **Open Library**: Free library, in development  
+- **iTunes/Apple Books**: Apple ecosystem, in development
 
-**Audible Country** (nur sichtbar wenn Audible gewählt)
-- DE: Deutschland
-- UK: Vereinigtes Königreich
-- US: Vereinigte Staaten
+**Audible Country** (only visible when Audible is selected)
+- DE: Germany
+- UK: United Kingdom
+- US: United States
 
 **Offline Mode**
-- Deaktiviert (Standard): Alle Online-Features verfügbar
-- Aktiviert: Nur manuelle Eingabe, keine API-Calls
+- Disabled (Default): All online features available
+- Enabled: Manual entry only, no API calls
 
 ### Performance Settings
 
 **Rate Limiting**
-- **Enabled**: Schützt vor zu vielen API-Anfragen (empfohlen)
-- **Requests per Minute**: 1-20 (Standard: 5)
-  - Niedrigere Werte = konservativer
-  - Höhere Werte = schneller, aber riskanter
-  - Pro Provider: Separate Rate Limiter für jeden Anbieter
+- **Enabled**: Protects against too many API requests (recommended)
+- **Requests per Minute**: 1-20 (Default: 5)
+  - Lower values = more conservative
+  - Higher values = faster, but riskier
+  - Per Provider: Separate rate limiter for each provider
 
 **Caching**
-- **Enabled**: Reduziert API-Aufrufe deutlich (empfohlen)
-- **Cache Duration (hours)**: 1-168 (Standard: 24)
-  - Wie lange Metadaten im Cache bleiben
-  - Automatisches Cleanup alle 24h
-  - Manuelles Löschen via Command möglich
+- **Enabled**: Significantly reduces API calls (recommended)
+- **Cache Duration (hours)**: 1-168 (Default: 24)
+  - How long metadata stays in cache
+  - Automatic cleanup every 24h
+  - Manual deletion via command possible
 
 ### Cover Settings
 
 **Cover Storage**
-- **Local** (Standard): Downloads nach `<Output-Ordner>/_covers/`
-  - Funktioniert offline
-  - Keine externen Dependencies
-  - Verbraucht Vault-Speicher
-- **URL**: Verwendet externe Links
-  - Kein Download
-  - Benötigt Internet-Verbindung zum Anzeigen
-  - Spart Speicherplatz
+- **Local** (Default): Downloads to `<Output-Folder>/_covers/`
+  - Works offline
+  - No external dependencies
+  - Uses vault storage
+- **URL**: Uses external links
+  - No download
+  - Requires internet connection for display
+  - Saves storage space
 
-## Technische Details
+## Technical Details
 
-### Projektstruktur
+### Project Structure
 
 ```
 obsidian-book-metadata/
 ├── src/
 │   ├── main.ts                           # Plugin Entry Point
-│   ├── settings.ts                       # Settings UI & Typen
+│   ├── settings.ts                       # Settings UI & Types
 │   ├── models/
-│   │   └── AudiobookMetadata.ts         # Zentrale Datenmodelle
+│   │   └── AudiobookMetadata.ts         # Central Data Models
 │   ├── services/
-│   │   ├── IMetadataProvider.ts         # Provider-Interface
-│   │   ├── MetadataProviderFactory.ts   # Provider-Verwaltung
+│   │   ├── IMetadataProvider.ts         # Provider Interface
+│   │   ├── MetadataProviderFactory.ts   # Provider Management
 │   │   ├── GoogleBooksApiService.ts     # Google Books ✓
 │   │   ├── AudibleApiService.ts         # Placeholder
 │   │   ├── OpenLibraryApiService.ts     # Placeholder
 │   │   ├── ITunesApiService.ts          # Placeholder
 │   │   ├── MarkdownGenerator.ts         # Frontmatter Generator
-│   │   ├── FileCreator.ts               # Vault Operationen
-│   │   ├── ImageDownloadService.ts      # Cover-Download
+│   │   ├── FileCreator.ts               # Vault Operations
+│   │   ├── ImageDownloadService.ts      # Cover Download
 │   │   └── cache/
-│   │       ├── CacheService.ts          # TTL-Cache
+│   │       ├── CacheService.ts          # TTL Cache
 │   │       └── CacheCleanup.ts          # Auto-Cleanup
 │   ├── ui/
 │   │   ├── AudiobookCardRenderer.ts     # Code Block Renderer
@@ -270,34 +270,34 @@ obsidian-book-metadata/
 │   │   └── AudiobookCommands.ts         # Command Handler
 │   └── utils/
 │       └── RateLimiter.ts               # Token-Bucket
-├── styles.css                            # Plugin-Styles
-├── manifest.json                         # Plugin-Manifest
-├── main.js                               # Gebündelter Output
-└── README.md                             # Diese Datei
+├── styles.css                            # Plugin Styles
+├── manifest.json                         # Plugin Manifest
+├── main.js                               # Bundled Output
+└── README.md                             # This File
 ```
 
-### Architektur-Prinzipien
+### Architecture Principles
 
-**Modular & Erweiterbar**
-- Interface-basierte Provider (IMetadataProvider)
-- Decorator Pattern für Rate Limiting & Caching
-- Factory Pattern für Provider-Instanziierung
-- Einfaches Hinzufügen neuer Provider
+**Modular & Extensible**
+- Interface-based providers (IMetadataProvider)
+- Decorator pattern for rate limiting & caching
+- Factory pattern for provider instantiation
+- Easy addition of new providers
 
-**Performance-Optimiert**
-- Token-Bucket Rate Limiter für gleichmäßige API-Auslastung
-- TTL-basierter Cache mit automatischer Invalidierung
-- Lazy Loading von Services
-- Persistenter Cache überlebt Plugin-Neustarts
+**Performance-Optimized**
+- Token-bucket rate limiter for even API usage
+- TTL-based cache with automatic invalidation
+- Lazy loading of services
+- Persistent cache survives plugin restarts
 
 **Obsidian Best Practices**
 - Native Settings API
-- Sichere Vault API Nutzung
-- Modal API für konsistente UX
-- Markdown Post Processor für Code Blocks
-- Proper Cleanup in onunload
+- Safe Vault API usage
+- Modal API for consistent UX
+- Markdown Post Processor for code blocks
+- Proper cleanup in onunload
 
-### Datenmodell
+### Data Model
 
 ```typescript
 interface AudiobookMetadata {
@@ -341,50 +341,50 @@ interface AudiobookMetadata {
 }
 ```
 
-## Entwicklung
+## Development
 
-### Voraussetzungen
-- Node.js 18+ (LTS empfohlen)
+### Prerequisites
+- Node.js 18+ (LTS recommended)
 - npm 9+
 - Git
 
 ### Setup
 
 ```bash
-# Repository klonen
+# Clone repository
 git clone https://github.com/yourusername/obsidian-audiobook-metadata.git
 cd obsidian-audiobook-metadata
 
-# Dependencies installieren
+# Install dependencies
 npm install
 
-# Development Build (mit Watch-Modus)
+# Development build (with watch mode)
 npm run dev
 
-# Production Build
+# Production build
 npm run build
 
 # Linting
 npm run lint
 ```
 
-### Testen im Vault
+### Testing in Vault
 
 ```bash
-# Option 1: Symlink (empfohlen für Development)
+# Option 1: Symlink (recommended for development)
 ln -s $(pwd) /path/to/vault/.obsidian/plugins/audiobook-metadata
 
-# Option 2: Kopieren
+# Option 2: Copy
 cp main.js manifest.json styles.css /path/to/vault/.obsidian/plugins/audiobook-metadata/
 ```
 
-Nach Änderungen:
-1. Plugin in Obsidian neu laden (Cmd/Ctrl + R in Developer Mode)
-2. Oder: Plugin deaktivieren/aktivieren in Settings
+After changes:
+1. Reload plugin in Obsidian (Cmd/Ctrl + R in Developer Mode)
+2. Or: Disable/enable plugin in Settings
 
-### Neuen Provider hinzufügen
+### Adding a New Provider
 
-1. **Service erstellen** in `src/services/`
+1. **Create service** in `src/services/`
 ```typescript
 export class MyProviderApiService implements IMetadataProvider {
   getProviderId(): string { return 'myprovider'; }
@@ -397,175 +397,152 @@ export class MyProviderApiService implements IMetadataProvider {
     // Implementation
   }
   
-  // ... weitere Methoden
+  // ... additional methods
 }
 ```
 
-2. **Factory erweitern** in `MetadataProviderFactory.ts`
+2. **Extend factory** in `MetadataProviderFactory.ts`
 ```typescript
 case 'myprovider':
   return new MyProviderApiService();
 ```
 
-3. **Settings aktualisieren** in `settings.ts`
+3. **Update settings** in `settings.ts`
 ```typescript
 export type ApiProvider = "audible" | "googlebooks" | "openlibrary" | "itunes" | "myprovider";
 ```
 
-## Fehlerbehebung
+## Troubleshooting
 
-### Plugin lädt nicht
-- Prüfen Sie, ob alle drei Dateien vorhanden sind: `main.js`, `manifest.json`, `styles.css`
-- Starten Sie Obsidian neu
-- Prüfen Sie die Developer Console (Cmd/Ctrl + Shift + I) auf Fehler
+### Plugin doesn't load
+- Check if all three files are present: `main.js`, `manifest.json`, `styles.css`
+- Restart Obsidian
+- Check the Developer Console (Cmd/Ctrl + Shift + I) for errors
 
-### "No results found" bei Suche
-- Google Books API hat möglicherweise keine Treffer
-- Versuchen Sie verschiedene Suchbegriffe
-- Prüfen Sie Ihre Internetverbindung
-- Rate Limit könnte erreicht sein (warten Sie 1 Minute)
+### "No results found" during search
+- Google Books API may not have any matches
+- Try different search terms
+- Check your internet connection
+- Rate limit may be reached (wait 1 minute)
 
-### Cover wird nicht angezeigt
-- Prüfen Sie, ob Cover lokal gespeichert wurde in `<Ordner>/_covers/`
-- Bei URL-Modus: Internet-Verbindung erforderlich
-- Cover-URL könnte ungültig sein
-- Prüfen Sie Dateiberechtigungen im Vault
+### Cover not displayed
+- Check if cover was saved locally in `<Folder>/_covers/`
+- In URL mode: Internet connection required
+- Cover URL might be invalid
+- Check file permissions in vault
 
-### Cache-Probleme
-- Löschen Sie Cache manuell: Command "Clear audiobook metadata cache"
-- Cache-Datei: `.obsidian/plugins/audiobook-metadata/data.json`
-- Reduzieren Sie Cache Duration in Settings
+### Cache issues
+- Clear cache manually: Command "Clear audiobook metadata cache"
+- Cache file: `.obsidian/plugins/audiobook-metadata/data.json`
+- Reduce Cache Duration in Settings
 
-## Roadmap
-
-### v0.2.0 - Provider-Erweiterung
-- [x] Vollständige Audible API Integration
-- [ ] Open Library API Integration  
-- [ ] iTunes API Integration
-- [ ] Cover-Größen-Optimierung
-- [ ] Export-Templates für andere Formate
-
-### v0.3.0 - Erweiterte Features
-- [ ] Batch-Import (mehrere Bücher auf einmal)
-- [ ] Automatische Metadaten-Aktualisierung
-- [ ] Benutzerdefinierte Frontmatter-Templates
-- [ ] ISBN-Scanner (Mobile mit Kamera)
-
-### v0.4.0 - Integration
-- [ ] Dataview-Integration
-- [ ] Book Notes Templates
-- [ ] Reading Progress Tracker
-- [ ] Goodreads-Sync
-- [ ] Custom Provider API (für eigene Quellen)
-
-### Langfristig
-- [ ] Mobile Optimierung
-- [ ] Audiobook-Player Integration
-- [ ] Hörbuch-Bibliothek Ansicht
-- [ ] Tags & Collections
-- [ ] Import aus Calibre/Audiobookshelf
-
-## Bekannte Einschränkungen
+## Known Limitations
 
 1. **Audible API**
-   - Verwendet Audnex API (Third-Party) für Metadaten
-   - Offizielle Audible API für Suche
-   - Rate Limits beachten (daher Rate Limiter implementiert)
-   - Nur DE, UK, US Regionen verfügbar
+   - Uses Audnex API (third-party) for metadata
+   - Official Audible API for search
+   - Rate limits must be observed (hence rate limiter implemented)
+   - Only DE, UK, US regions available
 
 2. **Google Books API**
-   - Nicht alle Bücher haben Audiobook-spezifische Daten (Narrator, Duration)
-   - Rate Limits gelten (daher Rate Limiter implementiert)
-   - Manche Regionen haben eingeschränkten Zugriff
+   - Not all books have audiobook-specific data (narrator, duration)
+   - Rate limits apply (hence rate limiter implemented)
+   - Some regions have restricted access
 
 3. **Open Library/iTunes**
-   - Aktuell nur Placeholder
-   - Werden in zukünftigen Versionen implementiert
+   - Currently placeholders only
+   - Will be implemented in future versions
 
-3. **Cover-Download**
-   - Funktioniert nur bei verfügbaren Cover-URLs
-   - Bildqualität abhängig von Provider
-   - Keine automatische Skalierung
+3. **Cover Download**
+   - Only works with available cover URLs
+   - Image quality depends on provider
+   - No automatic scaling
 
-4. **Offline-Modus**
-   - Keine API-Features verfügbar
-   - Nur manuelle Eingabe möglich
-   - Cover-URLs funktionieren nicht
+4. **Offline Mode**
+   - No API features available
+   - Only manual entry possible
+   - Cover URLs don't work
 
-## Beiträge
+## Contributing
 
-Contributions sind herzlich willkommen! 
+Contributions are welcome! 
 
-### Wie Sie beitragen können
+### How to Contribute
 
-1. **Bug Reports**: [GitHub Issues](https://github.com/yourusername/obsidian-audiobook-metadata/issues)
-2. **Feature Requests**: [GitHub Discussions](https://github.com/yourusername/obsidian-audiobook-metadata/discussions)
+1. **Bug Reports**: [GitHub Issues](https://github.com/aixxo/audiobook-metadata/issues)
+2. **Feature Requests**: [GitHub Discussions](https://github.com/aixxo/audiobook-metadata/discussions)
 3. **Pull Requests**:
    ```bash
    git checkout -b feature/AmazingFeature
    git commit -m 'Add AmazingFeature'
    git push origin feature/AmazingFeature
    ```
-4. **Dokumentation**: Verbesserungen an README, Code-Kommentaren
-5. **Testing**: Testen Sie neue Features, melden Sie Bugs
+4. **Documentation**: Improvements to README, code comments
+5. **Testing**: Test new features, report bugs
 
 ### Code Style
-- TypeScript mit `strict: true`
-- ESLint für Code-Qualität
-- Kommentare auf Englisch im Code
-- User-facing Strings auf Deutsch
+- TypeScript with `strict: true`
+- ESLint for code quality
+- Comments in English in code
+- User-facing strings in English (or localized)
 
 ## Support & Community
 
-- **Issues**: [GitHub Issues](https://github.com/yourusername/obsidian-audiobook-metadata/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/yourusername/obsidian-audiobook-metadata/discussions)
-- **Obsidian Forum**: [Plugin-Thread](https://forum.obsidian.md)
+- **Issues**: [GitHub Issues](https://github.com/aixxo/audiobook-metadata/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/aixxo/audiobook-metadata/discussions)
 
-## Lizenz
+## License
 
-MIT License - siehe [LICENSE](LICENSE) Datei für Details.
+MIT License - see [LICENSE](LICENSE) file for details.
 
-## Danksagungen
+## Acknowledgments
 
-- **Obsidian Team** für die hervorragende Plugin-API und Dokumentation
-- **Google Books** für die kostenfreie API
-- **Community** für Feedback, Testing und Beiträge
-- **GitHub Copilot** für Unterstützung bei der Entwicklung
+- **Obsidian Team** for the excellent plugin API and documentation
+- **Google Books** for the free API
+- **Community** for feedback, testing, and contributions
+- **GitHub Copilot** for development support
 
 ## Changelog
+### v0.3.0 (2026-03-08) - Support own frontmatter fields & batch update
+- ✨ **Custom frontmatter fields**
+  - Define any key-value pairs in settings
+  - Automatically added to new audiobook files
+  - Supports string, number, boolean types
+- 🔄 **Batch update existing files**
+    - Apply new custom fields to existing audiobook files
 
-### v0.1.1 (2024-03-08) - Audible Integration
-- ✨ **Audible API vollständig implementiert**
-  - ASIN-basierte Suche via Audnex API
-  - URL-Import von Audible-Links
-  - Textsuche via offizielle Audible API
-  - Multi-Region Support (DE, UK, US)
-- 🎙️ **Audiobook-spezifische Metadaten**
-  - Narrator/Sprecher-Informationen
-  - Präzise Dauer-Angaben
-  - Serien-Support (Primary & Secondary)
-  - Genre-Filtering (echte Genres vs. Tags)
-- 🔧 **Datenverarbeitung**
-  - Automatische Serien-Position-Bereinigung
-  - Duration Formatting (Minuten → lesbar)
-  - ASIN-Validierung
-- 🌍 **Region-spezifische URLs** für Audible.de/.co.uk/.com
+### v0.2.0 (2026-03-08) - Audible Integration
+- ✨ **Audible API fully implemented**
+  - ASIN-based search via Audnex API
+  - URL import from Audible links
+  - Text search via official Audible API
+  - Multi-region support (DE, UK, US)
+- 🎙️ **Audiobook-specific metadata**
+  - Narrator information
+  - Precise duration data
+  - Series support (Primary & Secondary)
+  - Genre filtering (true genres vs. tags)
+- 🔧 **Data processing**
+  - Automatic series position cleanup
+  - Duration formatting (minutes → readable)
+  - ASIN validation
+- 🌍 **Region-specific URLs** for Audible.de/.co.uk/.com
 
-### v0.1.0 (2024-03-08) - Initial Release
-- ✨ Multi-Provider Architektur
-- ✅ Google Books API vollständig implementiert
-- 🎨 Visuelle Audiobook-Karten via Code Blocks
-- 📝 Automatische Frontmatter-Generierung
-- ⚡ Rate Limiting & Caching
-- 🖼️ Cover-Download mit lokaler Speicherung
-- 🛠️ 4-Tab Input Modal (URL/Search/ID/Manual)
-- 📱 Offline-Modus
-- 🎛️ Vollständige Settings-Integration
-- 🔧 5 Commands für verschiedene Workflows
+### v0.1.0 (2026-03-08) - Initial Release
+- ✨ Multi-provider architecture
+- ✅ Google Books API fully implemented
+- 🎨 Visual audiobook cards via code blocks
+- 📝 Automatic frontmatter generation
+- ⚡ Rate limiting & caching
+- 🖼️ Cover download with local storage
+- 🛠️ 4-tab input modal (URL/Search/ID/Manual)
+- 📱 Offline mode
+- 🎛️ Complete settings integration
+- 🔧 5 commands for different workflows
 
 ---
 
-**Version**: 0.1.1  
+**Version**: 0.3.0  
 **Status**: Beta  
-**Letztes Update**: 8. März 2024  
+**Last Update**: March 8, 2024  
 **Compatibility**: Obsidian 0.15.0+
