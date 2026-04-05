@@ -1,5 +1,5 @@
 import {App, Notice, TFile} from "obsidian";
-import {MediaMetadata} from "../models/MediaMetadata";
+import {MediaMetadata} from "../models/AudiobookMetadata";
 import {MarkdownGenerator} from "./MarkdownGenerator";
 import {ImageDownloadService} from "./ImageDownloadService";
 import {MediaPluginSettings} from "../settings";

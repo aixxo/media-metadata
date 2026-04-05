@@ -1,5 +1,5 @@
 import {App, Modal, Notice, Setting} from "obsidian";
-import {MediaMetadata} from "../models/MediaMetadata";
+import {MediaMetadata} from "../models/AudiobookMetadata";
 import {IMetadataProvider} from "../services/IMetadataProvider";
 
 /**

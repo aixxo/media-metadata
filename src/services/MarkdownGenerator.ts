@@ -1,4 +1,4 @@
-import {MediaMetadata} from "../models/MediaMetadata";
+import {MediaMetadata} from "../models/AudiobookMetadata";
 import {MediaPluginSettings, CustomFrontmatterField} from "../settings";
 import {getSortedCustomFields} from "../utils/TypeGuards";
 

@@ -1,4 +1,4 @@
-import {MediaMetadata} from "../../models/MediaMetadata";
+import {MediaMetadata} from "../../models/AudiobookMetadata";
 
 /**
  * Cache entry with TTL (Time To Live)

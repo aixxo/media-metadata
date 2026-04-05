@@ -1,4 +1,4 @@
-import {MediaMetadata, MediaSearchResult} from "../models/MediaMetadata";
+import {MediaMetadata, MediaSearchResult} from "../models/AudiobookMetadata";
 
 /**
  * Base interface for metadata providers

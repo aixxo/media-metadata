@@ -2,7 +2,7 @@
  * Central interface for media metadata
  * Supports data from multiple providers (Audible, Google Books, Open Library, iTunes)
  */
-export interface MediaMetadata {
+export interface AudiobookMetadata {
 	// Core identifiers
 	id: string;                    // Provider-specific ID (ASIN, ISBN, etc.)
 	provider: string;               // Source provider (audible, googlebooks, etc.)
@@ -48,7 +48,7 @@ export interface MediaMetadata {
 /**
  * Result type for search operations
  */
-export interface MediaSearchResult {
-	metadata: MediaMetadata;
+export interface AudiobookSearchResult {
+	metadata: AudiobookMetadata;
 	relevanceScore?: number;        // Optional relevance ranking
 }

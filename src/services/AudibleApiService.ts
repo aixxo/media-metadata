@@ -1,5 +1,5 @@
 import {IMetadataProvider} from "./IMetadataProvider";
-import {MediaMetadata, MediaSearchResult} from "../models/MediaMetadata";
+import {MediaMetadata, MediaSearchResult} from "../models/AudiobookMetadata";
 import {requestUrl} from "obsidian";
 
 /**
