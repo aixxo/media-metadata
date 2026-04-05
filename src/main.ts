@@ -63,8 +63,8 @@ export default class MediaMetadataPlugin extends Plugin {
 
 		// Register commands
 		this.addCommand({
-			id: 'add-media-from-url',
-			name: 'Add media from URL',
+			id: 'audiobook-add-from-url',
+			name: 'Add audiobook from URL',
 			callback: async () => {
 				try {
 					await this.commands.addFromUrl();
@@ -77,8 +77,8 @@ export default class MediaMetadataPlugin extends Plugin {
 		});
 
 		this.addCommand({
-			id: 'add-media-from-search',
-			name: 'Search and add media',
+			id: 'audiobook-add-from-search',
+			name: 'Search and add audiobook',
 			callback: async () => {
 				try {
 					await this.commands.addFromSearch();
@@ -91,8 +91,8 @@ export default class MediaMetadataPlugin extends Plugin {
 		});
 
 		this.addCommand({
-			id: 'add-media-from-id',
-			name: 'Add media from identifier',
+			id: 'audiobook-add-from-id',
+			name: 'Add audiobook from identifier',
 			callback: async () => {
 				try {
 					await this.commands.addFromId();
@@ -105,8 +105,8 @@ export default class MediaMetadataPlugin extends Plugin {
 		});
 
 		this.addCommand({
-			id: 'refresh-metadata',
-			name: 'Refresh metadata',
+			id: 'audiobook-refresh-metadata',
+			name: 'Refresh audiobook metadata',
 			callback: async () => {
 				try {
 					await this.commands.refreshMetadata();
@@ -134,7 +134,7 @@ export default class MediaMetadataPlugin extends Plugin {
 
 		// Series commands
 		this.addCommand({
-			id: 'add-series-from-search',
+			id: 'series-add-from-search',
 			name: 'Search and add series',
 			callback: async () => {
 				try {
@@ -148,7 +148,7 @@ export default class MediaMetadataPlugin extends Plugin {
 		});
 
 		this.addCommand({
-			id: 'add-series-from-id',
+			id: 'series-add-from-id',
 			name: 'Add series from identifier',
 			callback: async () => {
 				try {
@@ -162,7 +162,7 @@ export default class MediaMetadataPlugin extends Plugin {
 		});
 
 		this.addCommand({
-			id: 'add-series-manually',
+			id: 'series-add-manually',
 			name: 'Add series manually',
 			callback: async () => {
 				try {
