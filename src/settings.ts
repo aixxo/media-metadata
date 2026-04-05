@@ -91,6 +91,7 @@ export const DEFAULT_SETTINGS: MediaPluginSettings = {
 
 export class MediaSettingTab extends PluginSettingTab {
 	plugin: MediaMetadataPlugin;
+	activeTab: 'audiobooks' | 'series' = 'audiobooks';
 
 	constructor(app: App, plugin: MediaMetadataPlugin) {
 		super(app, plugin);
@@ -102,8 +103,35 @@ export class MediaSettingTab extends PluginSettingTab {
 
 		containerEl.empty();
 
-		;
+		// Tab bar
+		const tabBar = containerEl.createDiv({cls: 'settings-tab-bar'});
 
+		const audiobooksBtn = tabBar.createEl('button', {
+			text: 'Audiobooks',
+			cls: 'settings-tab-btn' + (this.activeTab === 'audiobooks' ? ' active' : '')
+		});
+		audiobooksBtn.addEventListener('click', () => {
+			this.activeTab = 'audiobooks';
+			this.display();
+		});
+
+		const seriesBtn = tabBar.createEl('button', {
+			text: 'Series',
+			cls: 'settings-tab-btn' + (this.activeTab === 'series' ? ' active' : '')
+		});
+		seriesBtn.addEventListener('click', () => {
+			this.activeTab = 'series';
+			this.display();
+		});
+
+		if (this.activeTab === 'audiobooks') {
+			this.renderAudiobookSettings(containerEl);
+		} else {
+			this.renderSeriesSettings(containerEl);
+		}
+	}
+
+	private renderAudiobookSettings(containerEl: HTMLElement): void {
 		// Output Folder
 		new Setting(containerEl)
 			.setName('Output folder')
@@ -308,13 +336,9 @@ export class MediaSettingTab extends PluginSettingTab {
 						modal.open();
 					}));
 		}
+	}
 
-		// ──────────────────────────────────────────────
-		// Series settings
-		// ──────────────────────────────────────────────
-		// eslint-disable-next-line obsidianmd/ui/sentence-case
-		new Setting(containerEl).setName('TV series').setHeading();
-
+	private renderSeriesSettings(containerEl: HTMLElement): void {
 		const s = this.plugin.settings.series;
 
 		new Setting(containerEl)

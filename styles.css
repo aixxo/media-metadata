@@ -545,3 +545,35 @@
 	background-color: var(--background-modifier-border);
 	color: var(--text-muted);
 }
+/* ============================================================
+   Settings Tab Bar
+   ============================================================ */
+
+.settings-tab-bar {
+	display: flex;
+	gap: 0;
+	border-bottom: 1px solid var(--background-modifier-border);
+	margin-bottom: 1.25rem;
+}
+
+.settings-tab-btn {
+	padding: 0.5rem 1.25rem;
+	background: none;
+	border: none;
+	border-bottom: 2px solid transparent;
+	margin-bottom: -1px;
+	cursor: pointer;
+	font-size: var(--font-ui-medium);
+	color: var(--text-muted);
+	transition: color 0.15s, border-color 0.15s;
+}
+
+.settings-tab-btn:hover {
+	color: var(--text-normal);
+}
+
+.settings-tab-btn.active {
+	color: var(--text-accent);
+	border-bottom-color: var(--text-accent);
+	font-weight: 500;
+}
