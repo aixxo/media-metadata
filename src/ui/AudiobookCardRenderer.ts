@@ -351,8 +351,8 @@ export class AudiobookCardRenderer {
 		// Rating
 		if (data.rating !== undefined) {
 			const ratingDiv = infoSection.createDiv({cls: 'media-rating'});
-			const stars = this.renderStars(data.rating);
-			ratingDiv.createSpan({cls: 'media-stars', text: stars});
+			const starsSpan = ratingDiv.createSpan({cls: 'media-stars'});
+			starsSpan.style.setProperty('--rating-pct', `${(data.rating / 5) * 100}%`);
 			ratingDiv.createSpan({
 				cls: 'media-rating-value',
 				text: ` ${data.rating.toFixed(1)}`
@@ -379,18 +379,4 @@ export class AudiobookCardRenderer {
 		}
 	}
 
-	/**
-	 * Render star rating (★★★★☆)
-	 */
-	private renderStars(rating: number): string {
-		const fullStars = Math.floor(rating);
-		const halfStar = rating % 1 >= 0.5;
-		const emptyStars = 5 - fullStars - (halfStar ? 1 : 0);
-
-		let stars = '★'.repeat(fullStars);
-		if (halfStar) stars += '⯨';
-		stars += '☆'.repeat(emptyStars);
-
-		return stars;
-	}
 }

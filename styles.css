@@ -75,9 +75,21 @@
 }
 
 .media-stars {
-	color: var(--text-accent);
+	display: inline-block;
 	font-size: 1.2rem;
 	letter-spacing: 2px;
+}
+
+.media-stars::before {
+	content: '★★★★★';
+	background: linear-gradient(
+		90deg,
+		var(--text-accent) var(--rating-pct, 0%),
+		var(--text-faint) var(--rating-pct, 0%)
+	);
+	-webkit-background-clip: text;
+	background-clip: text;
+	-webkit-text-fill-color: transparent;
 }
 
 .media-rating-value {

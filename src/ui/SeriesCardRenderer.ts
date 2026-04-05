@@ -170,7 +170,8 @@ export class SeriesCardRenderer {
 		// Rating
 		if (data.rating !== undefined) {
 			const ratingDiv = infoSection.createDiv({cls: 'media-rating'});
-			ratingDiv.createSpan({cls: 'media-stars', text: this.renderStars(data.rating)});
+			const starsSpan = ratingDiv.createSpan({cls: 'media-stars'});
+			starsSpan.style.setProperty('--rating-pct', `${(data.rating / 10) * 100}%`);
 			ratingDiv.createSpan({cls: 'media-rating-value', text: ` ${data.rating.toFixed(1)}`});
 		}
 
@@ -251,15 +252,4 @@ export class SeriesCardRenderer {
 		return data;
 	}
 
-	private renderStars(rating: number): string {
-		// TVMaze/TMDB ratings are out of 10
-		const scaled = rating / 2; // convert to 0-5
-		const full = Math.floor(scaled);
-		const half = scaled % 1 >= 0.5;
-		const empty = 5 - full - (half ? 1 : 0);
-		let stars = '★'.repeat(full);
-		if (half) stars += '⯨';
-		stars += '☆'.repeat(empty);
-		return stars;
-	}
 }
