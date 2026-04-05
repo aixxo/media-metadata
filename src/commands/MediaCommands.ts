@@ -112,7 +112,7 @@ export class MediaCommands {
 
 		// Check if file is in audiobooks folder
 		if (!activeFile.path.startsWith(this.settings.defaultOutputFolder)) {
-			new Notice('Current file is not in the audiobooks folder');
+			new Notice('Current file is not in the media folder');
 			return;
 		}
 

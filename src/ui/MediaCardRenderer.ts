@@ -304,7 +304,7 @@ export class MediaCardRenderer {
 			cls: 'media-cover',
 			attr: {
 				src: coverSrc,
-				alt: data.title || 'Audiobook cover'
+				alt: data.title || 'Media cover'
 			}
 		});
 	}

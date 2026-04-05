@@ -84,7 +84,7 @@ export class BatchUpdateModal extends Modal {
 		// Summary
 		const summaryDiv = contentEl.createDiv({cls: 'batch-update-summary'});
 		summaryDiv.createEl('p', {
-			text: `Found ${this.files.length} audiobook file(s). Select files to update:`
+			text: `Found ${this.files.length} media file(s). Select files to update:`
 		});
 
 		// Select all/none buttons

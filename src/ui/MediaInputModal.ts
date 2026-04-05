@@ -42,7 +42,7 @@ export class MediaInputModal extends Modal {
 		const {contentEl} = this;
 		contentEl.empty();
 		
-		contentEl.createEl('h2', {text: 'Add audiobook metadata'});
+		contentEl.createEl('h2', {text: 'Add media metadata'});
 
 		// Create tabs
 		this.createTabs(contentEl);
@@ -126,7 +126,7 @@ export class MediaInputModal extends Modal {
 		let urlInput = '';
 
 		new Setting(this.urlTabContent)
-			.setName('Audiobook URL')
+			.setName('Media URL')
 			.setDesc('Enter a URL from any supported provider')
 			.addText(text => {
 				text.setPlaceholder('https://www.audible.com/pd/...');
@@ -167,7 +167,7 @@ export class MediaInputModal extends Modal {
 
 		new Setting(this.searchTabContent)
 			.setName('Search')
-			.setDesc('Search for audiobooks by title, author, or keyword')
+			.setDesc('Search for media by title, author, or keyword')
 			.addText(text => {
 				text.setPlaceholder('Title or author');
 				text.onChange(value => searchQuery = value);
@@ -205,7 +205,7 @@ export class MediaInputModal extends Modal {
 		let idInput = '';
 
 		new Setting(this.idTabContent)
-			.setName('Audiobook ID')
+			.setName('Media ID')
 			.setDesc('Enter a book identifier from any provider')
 			.addText(text => {
 			text.setPlaceholder('B07XYZ123');
@@ -267,7 +267,7 @@ export class MediaInputModal extends Modal {
 		new Setting(this.manualTabContent)
 			.setName('Title')
 			.addText(text => {
-				text.setPlaceholder('Audiobook title');
+				text.setPlaceholder('Media title');
 				text.onChange(value => metadata.title = value);
 				addEnterListener(text);
 			});
