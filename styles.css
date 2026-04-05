@@ -199,6 +199,61 @@
 	overflow-y: auto;
 }
 
+.audiobook-search-results {
+	margin-top: 1.5rem;
+	max-height: 400px;
+	overflow-y: auto;
+}
+
+.audiobook-search-item {
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+	padding: 0.6rem 0.5rem;
+	border-bottom: 1px solid var(--background-modifier-border);
+	cursor: default;
+}
+
+.audiobook-search-item:last-child {
+	border-bottom: none;
+}
+
+.audiobook-search-item:hover {
+	background-color: var(--background-secondary);
+	border-radius: 4px;
+}
+
+.audiobook-search-thumbnail {
+	width: 48px;
+	height: 64px;
+	object-fit: cover;
+	border-radius: 3px;
+	flex-shrink: 0;
+}
+
+.audiobook-search-info {
+	flex-grow: 1;
+	min-width: 0;
+	font-size: 0.9rem;
+	color: var(--text-normal);
+}
+
+.audiobook-search-author {
+	font-size: 0.82rem;
+	color: var(--text-muted);
+	margin-top: 0.15rem;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.audiobook-search-empty {
+	padding: 1rem;
+	color: var(--text-muted);
+	font-style: italic;
+	text-align: center;
+}
+
 /* Custom Frontmatter Fields Table */
 .custom-fields-table-container {
 	margin: 1rem 0;
