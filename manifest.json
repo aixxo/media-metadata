@@ -1,7 +1,7 @@
 {
 	"id": "media-metadata",
 	"name": "Media Metadata",
-	"version": "0.7.5",
+	"version": "0.7.6",
 	"minAppVersion": "0.15.0",
 	"description": "Retrieve media metadata from Audible, TMDB. Creates formatted markdown files with frontmatter and beautiful media cards.",
 	"author": "aixxo",

@@ -86,7 +86,7 @@ export class MarkdownGenerator {
 
 		// Type/Subtype (for Obsidian Bases filtering)
 		lines.push('type: "book"');
-		lines.push('subtype: "media"');
+		lines.push('subtype: "audiobook"');
 
 		// Genres/Categories
 		if (metadata.genre && metadata.genre.length > 0) {
@@ -194,7 +194,7 @@ export class MarkdownGenerator {
 	 * Since metadata is now in frontmatter, this creates a minimal trigger block
 	 */
 	private generateMediaCodeBlock(metadata: AudiobookMetadata): string {
-		const lines: string[] = ['```media'];
+		const lines: string[] = ['```audiobook'];
 		lines.push('# Card renders from frontmatter');
 		lines.push('# You can override individual fields here if needed');
 		lines.push('```');
