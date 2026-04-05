@@ -1,10 +1,8 @@
-import {AudiobookMetadata} from "../../models/AudiobookMetadata";
-
 /**
  * Cache entry with TTL (Time To Live)
  */
-interface CacheEntry {
-	data: AudiobookMetadata;
+interface CacheEntry<T = unknown> {
+	data: T;
 	timestamp: number;
 	ttl: number; // in milliseconds
 }
@@ -17,11 +15,11 @@ export interface CacheData {
 }
 
 /**
- * Service for caching audiobook metadata
+ * Generic service for caching metadata
  * Reduces API calls and improves performance
  */
-export class CacheService {
-	private cache: Map<string, CacheEntry> = new Map();
+export class CacheService<T = unknown> {
+	private cache: Map<string, CacheEntry<T>> = new Map();
 	private defaultTtlHours: number;
 	private loadData: () => Promise<CacheData | null>;
 	private saveData: (data: CacheData) => Promise<void>;
@@ -45,8 +43,8 @@ export class CacheService {
 			if (data && data.entries) {
 				for (const [key, entry] of Object.entries(data.entries)) {
 					// Only restore entries that haven't expired
-					if (!this.isExpired(entry)) {
-						this.cache.set(key, entry);
+					if (!this.isExpired(entry as CacheEntry<T>)) {
+						this.cache.set(key, entry as CacheEntry<T>);
 					}
 				}
 				console.debug(`[CacheService] Loaded ${this.cache.size} valid cache entries`);
@@ -66,7 +64,7 @@ export class CacheService {
 	/**
 	 * Check if a cache entry has expired
 	 */
-	private isExpired(entry: CacheEntry): boolean {
+	private isExpired(entry: CacheEntry<T>): boolean {
 		return Date.now() > entry.timestamp + entry.ttl;
 	}
 
@@ -76,7 +74,7 @@ export class CacheService {
 	 * @param id Resource ID (e.g., ASIN)
 	 * @returns Cached metadata or null if not found/expired
 	 */
-	get(provider: string, id: string): AudiobookMetadata | null {
+	get(provider: string, id: string): T | null {
 		const key = this.generateKey(provider, id);
 		const entry = this.cache.get(key);
 
@@ -104,13 +102,13 @@ export class CacheService {
 	async set(
 		provider: string,
 		id: string,
-		data: AudiobookMetadata,
+		data: T,
 		ttlHours?: number
 	): Promise<void> {
 		const key = this.generateKey(provider, id);
 		const ttl = (ttlHours || this.defaultTtlHours) * 60 * 60 * 1000;
 
-		const entry: CacheEntry = {
+		const entry: CacheEntry<T> = {
 			data,
 			timestamp: Date.now(),
 			ttl
@@ -161,7 +159,7 @@ export class CacheService {
 	 */
 	private async persist(): Promise<void> {
 		try {
-			const entries: Record<string, CacheEntry> = {};
+			const entries: Record<string, CacheEntry<T>> = {};
 			for (const [key, entry] of this.cache.entries()) {
 				entries[key] = entry;
 			}

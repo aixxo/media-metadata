@@ -1,4 +1,5 @@
 import {ISeriesMetadataProvider} from "./ISeriesMetadataProvider";
+import {TVSeriesMetadata} from "../models/SeriesMetadata";
 import {SeriesPluginSettings} from "../settings";
 import {RateLimiter} from "../utils/RateLimiter";
 import {CacheService} from "./cache/CacheService";
@@ -104,12 +105,12 @@ export class SeriesMetadataProviderFactory {
 			search: async (query: string) => provider.search(query),
 			fetchById: async (id: string) => {
 				const cacheKey = `series:${id}`;
-				const cached = cache.get(providerId, cacheKey);
+				const cached = cache.get(providerId, cacheKey) as TVSeriesMetadata | null;
 				if (cached) return cached;
 
 				const result = await provider.fetchById(id);
 				if (result) {
-					await cache.set(providerId, cacheKey, result as unknown as import('../models/AudiobookMetadata').AudiobookMetadata);
+					await cache.set(providerId, cacheKey, result);
 				}
 				return result;
 			}

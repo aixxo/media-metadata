@@ -1,4 +1,5 @@
 import {IMetadataProvider} from "./IMetadataProvider";
+import {AudiobookMetadata} from "../models/AudiobookMetadata";
 import {MediaPluginSettings} from "../settings";
 import {RateLimiter} from "../utils/RateLimiter";
 import {CacheService} from "./cache/CacheService";
@@ -113,7 +114,7 @@ export class AudiobookMetadataProviderFactory {
 			search: async (query: string) => provider.search(query),
 			fetchById: async (id: string) => {
 				// Check cache first
-				const cached = cache.get(providerId, id);
+				const cached = cache.get(providerId, id) as AudiobookMetadata | null;
 				if (cached) {
 					return cached;
 				}
